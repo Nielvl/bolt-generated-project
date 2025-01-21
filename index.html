@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="language-selector">
+            <div class="relative inline-block">
+                <button id="language-selector" class="language-button">
+                    <span id="current-language">NL</span>
+                    <i class="fas fa-caret-down"></i>
+                </button>
+                <div id="language-dropdown" class="absolute hidden bg-white border rounded mt-1 w-32 z-10">
+                    <button data-lang="nl" class="language-option block w-full text-left px-4 py-2 hover:bg-gray-100">NL</button>
+                    <button data-lang="en" class="language-option block w-full text-left px-4 py-2 hover:bg-gray-100">EN</button>
+                    <button data-lang="ro" class="language-option block w-full text-left px-4 py-2 hover:bg-gray-100">RO</button>
+                </div>
+            </div>
+        </div>
+        <h1 id="main-title" class="text-2xl font-bold mb-4">Management System</h1>
+
+        <div class="mb-4">
+            <button id="tab-customers" class="tab-button active">Customers</button>
+            <button id="tab-warehouses" class="tab-button">Warehouses</button>
+            <button id="tab-admin" class="tab-button">Admin</button>
+        </div>
+
+        <div id="customers-content" class="tab-content active">
+            <div class="search-container">
+                <div class="search-input">
+                    <input type="text" id="klant-zoek" placeholder="Search for a customer...">
+                    <button id="clear-search" class="clear-search" style="display: none;">&times;</button>
+                </div>
+                <button id="scroll-top" class="scroll-top-button" title="Scroll to top">
+                    <i class="fas fa-chevron-up"></i>
+                    <span>TOP</span>
+                </button>
+            </div>
+
+            <div class="button-container">
+                <div class="sort-toggle">
+                    <button id="sort-time" class="sort-option active">By Time</button>
+                    <button id="sort-alpha" class="sort-option">Alphabetically</button>
+                </div>
+            </div>
+
+            <div id="klant-lijst" class="mb-8"></div>
+        </div>
+
+        <div id="warehouses-content" class="tab-content">
+            <div class="search-container">
+                <div class="search-input">
+                    <input type="text" id="warehouse-zoek" placeholder="Search for a warehouse...">
+                    <button id="clear-warehouse-search" class="clear-search" style="display: none;">&times;</button>
+                </div>
+            </div>
+            <div id="warehouse-lijst" class="mb-8"></div>
+        </div>
+
+        <div id="admin-content" class="tab-content">
+            <h2 class="text-xl font-semibold mb-4">Add New Customer</h2>
+            <form id="add-customer-form">
+                <div class="mb-4">
+                    <label for="customer-id" class="block text-gray-700 text-sm font-bold mb-2">Customer ID:</label>
+                    <input type="text" id="customer-id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label for="customer-name" class="block text-gray-700 text-sm font-bold mb-2">Customer Name:</label>
+                    <input type="text" id="customer-name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label for="customer-number" class="block text-gray-700 text-sm font-bold mb-2">Customer Number:</label>
+                    <input type="text" id="customer-number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                 <div class="mb-4">
+                    <label for="customer-timeSlot" class="block text-gray-700 text-sm font-bold mb-2">Time Slot:</label>
+                    <input type="text" id="customer-timeSlot" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label for="customer-voorkeuren-nl" class="block text-gray-700 text-sm font-bold mb-2">Preferences (NL):</label>
+                    <textarea id="customer-voorkeuren-nl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="customer-voorkeuren-en" class="block text-gray-700 text-sm font-bold mb-2">Preferences (EN):</label>
+                    <textarea id="customer-voorkeuren-en" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="customer-voorkeuren-ro" class="block text-gray-700 text-sm font-bold mb-2">Preferences (RO):</label>
+                    <textarea id="customer-voorkeuren-ro" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="customer-voertuigFoto" class="block text-gray-700 text-sm font-bold mb-2">Vehicle Photo URL:</label>
+                    <input type="text" id="customer-voertuigFoto" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label for="customer-locatie" class="block text-gray-700 text-sm font-bold mb-2">Location (lat, lng):</label>
+                    <input type="text" id="customer-locatie" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add Customer</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="customerData.js"></script>
+    <script src="warehouseData.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
