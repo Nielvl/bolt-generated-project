@@ -30,7 +30,6 @@
         <div class="mb-4">
             <button id="tab-customers" class="tab-button active">Customers</button>
             <button id="tab-warehouses" class="tab-button">Warehouses</button>
-            <button id="tab-admin" class="tab-button">Admin</button>
         </div>
 
         <div id="customers-content" class="tab-content active">
@@ -50,6 +49,10 @@
                     <button id="sort-time" class="sort-option active">By Time</button>
                     <button id="sort-alpha" class="sort-option">Alphabetically</button>
                 </div>
+                <button id="admin-panel-button" class="admin-panel-button">
+                    <i class="fas fa-user-cog"></i>
+                    <span data-adminPanelButton>Admin Panel</span>
+                </button>
             </div>
 
             <div id="klant-lijst" class="mb-8"></div>
@@ -64,47 +67,36 @@
             </div>
             <div id="warehouse-lijst" class="mb-8"></div>
         </div>
+    </div>
 
-        <div id="admin-content" class="tab-content">
-            <h2 class="text-xl font-semibold mb-4">Add New Customer</h2>
+    <div id="admin-panel" class="admin-panel hidden">
+        <div class="admin-panel-content">
+            <div class="admin-panel-header">
+                <h2 data-adminPanel class="text-xl font-bold mb-4">Admin Panel</h2>
+                <button id="close-admin-panel" class="close-button" data-closeButton>Close</button>
+            </div>
             <form id="add-customer-form">
                 <div class="mb-4">
-                    <label for="customer-id" class="block text-gray-700 text-sm font-bold mb-2">Customer ID:</label>
-                    <input type="text" id="customer-id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <label for="customer-name" data-customerName class="block text-gray-700 text-sm font-bold mb-2">Customer Name</label>
+                    <input type="text" id="customer-name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 </div>
                 <div class="mb-4">
-                    <label for="customer-name" class="block text-gray-700 text-sm font-bold mb-2">Customer Name:</label>
-                    <input type="text" id="customer-name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="mb-4">
-                    <label for="customer-number" class="block text-gray-700 text-sm font-bold mb-2">Customer Number:</label>
+                    <label for="customer-number" data-customerNumberLabel class="block text-gray-700 text-sm font-bold mb-2">Customer Number</label>
                     <input type="text" id="customer-number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
+                <div class="mb-4">
+                    <label for="time-slot" data-timeSlotLabel class="block text-gray-700 text-sm font-bold mb-2">Time Slot</label>
+                    <input type="text" id="time-slot" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
                  <div class="mb-4">
-                    <label for="customer-timeSlot" class="block text-gray-700 text-sm font-bold mb-2">Time Slot:</label>
-                    <input type="text" id="customer-timeSlot" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <label for="preferences" data-preferencesLabel class="block text-gray-700 text-sm font-bold mb-2">Preferences</label>
+                    <textarea id="preferences" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
                 </div>
                 <div class="mb-4">
-                    <label for="customer-voorkeuren-nl" class="block text-gray-700 text-sm font-bold mb-2">Preferences (NL):</label>
-                    <textarea id="customer-voorkeuren-nl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                    <label for="location" data-locationLabel class="block text-gray-700 text-sm font-bold mb-2">Location</label>
+                    <input type="text" id="location" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
-                <div class="mb-4">
-                    <label for="customer-voorkeuren-en" class="block text-gray-700 text-sm font-bold mb-2">Preferences (EN):</label>
-                    <textarea id="customer-voorkeuren-en" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="customer-voorkeuren-ro" class="block text-gray-700 text-sm font-bold mb-2">Preferences (RO):</label>
-                    <textarea id="customer-voorkeuren-ro" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="customer-voertuigFoto" class="block text-gray-700 text-sm font-bold mb-2">Vehicle Photo URL:</label>
-                    <input type="text" id="customer-voertuigFoto" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="mb-4">
-                    <label for="customer-locatie" class="block text-gray-700 text-sm font-bold mb-2">Location (lat, lng):</label>
-                    <input type="text" id="customer-locatie" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add Customer</button>
+                <button type="submit" class="submit-button" data-submitButton>Submit</button>
             </form>
         </div>
     </div>
